@@ -30,11 +30,14 @@ function BarChart() {
         top: 50, bottom: 50, left: 50, right: 50
     }
 
+
     const svg = d3.select(contRef.current)
         .append('svg')
         .attr('height', height - margin.top - margin.bottom)
         .attr('width', width - margin.left - margin.right)
         .attr('viewBox', [0, 0, width, height])
+
+
 
     const x = d3.scaleBand()
         .domain(d3.range(policeData.length - 1500))
@@ -62,17 +65,14 @@ function BarChart() {
         g.attr('transform', `translate(0, ${height - margin.bottom})`)
             .call(d3.axisBottom(x).tickFormat(i =>
                 Object.keys(policeData[0])[0].slice(0, 6)
-
             ))
             .attr('font-size', '3px')
-
-
     }
 
     const yAxis = (g) => {
         g.attr('transform', `translate(0, ${margin.left}, 0`)
             .call(d3.axisLeft(y).ticks(null, policeData.format))
-            .attr('font-size', '3px')
+            .attr('font-size', '5px')
 
 
 
