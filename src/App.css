@@ -13,6 +13,12 @@
   }
 }
 
+
+#canvas{
+  min-width: 1000px;
+  min-height: 600px;
+  /* background: pink; */
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -22,6 +28,10 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+path:hover{
+  fill:black;
 }
 
 .App-link {
