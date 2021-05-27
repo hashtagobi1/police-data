@@ -10,7 +10,6 @@ function BarChart() {
     const [policeData, setPoliceData] = useState([null])
     const policeURL = 'https://data.london.gov.uk/download/recorded_crime_summary/d2e9ccfc-a054-41e3-89fb-53c2bc3ed87a/MPS%20Borough%20Level%20Crime%20%28most%20recent%2024%20months%29.csv'
 
-
     useEffect(() => {
         setTimeout(() => {
             d3.csv(policeURL).then(data => {
@@ -22,7 +21,6 @@ function BarChart() {
 
     }, [policeData, setPoliceData], 800)
 
-
     // Create SVG + Canvas
     const width = 800
     const height = 400
@@ -30,14 +28,13 @@ function BarChart() {
         top: 50, bottom: 50, left: 50, right: 50
     }
 
-
     const svg = d3.select(contRef.current)
         .append('svg')
         .attr('height', height - margin.top - margin.bottom)
         .attr('width', width - margin.left - margin.right)
         .attr('viewBox', [0, 0, width, height])
 
-
+        // Required to display frequency of data to create bar chart
 
     const x = d3.scaleBand()
         .domain(d3.range(policeData.length - 1500))
@@ -49,9 +46,8 @@ function BarChart() {
         .range([height - margin.bottom, margin.top])
 
     svg
-
         .append('g')
-        .attr('fill', 'royalblue')
+        .attr('fill', 'red')
         .selectAll('rect')
         .data(Object.values(policeData))
         .join('rect')
@@ -60,6 +56,7 @@ function BarChart() {
         .attr('height', d => y(0) - y(d['201905']))
         .attr('width', x.bandwidth())
 
+        // creates axis which consists of dates from the police CSV file
 
     const xAxis = (g) => {
         g.attr('transform', `translate(0, ${height - margin.bottom})`)
@@ -74,41 +71,16 @@ function BarChart() {
             .call(d3.axisLeft(y).ticks(null, policeData.format))
             .attr('font-size', '5px')
 
-
-
     }
 
-
-
-    svg.append('g').call(yAxis)
     svg.append('g').call(xAxis)
-
+    svg.append('g').call(yAxis)
 
     svg.node()
 
-
-
-
-    try {
-        // policeData.filter((row, i)=>{
-        //     return row['201905']
-        // })
-        // console.log(policeData[0]['201905'])
-    } catch (e) {
-        console.log(e)
-    }
-
-    // console.log(Object.keys(policeData[0])[0].slice(0, 6))
-
-
-
-
-
-    // object =
     return (
         <Container ref={contRef}>
             <h5>Arson and Criminal Damage in: Barking + Dagenham</h5>
-
         </Container>
     )
 }
